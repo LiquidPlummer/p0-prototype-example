@@ -44,11 +44,10 @@ public class TestTableDAO implements Dao<TestTable>{
         PreparedStatement pstmt = connection.prepareStatement(sql);
         pstmt.setString(1, testTable.getString());
 
-        int i;
-        if((i = pstmt.executeUpdate()) > 0) {
+
+        if(pstmt.executeUpdate() > 0) {
             ResultSet rs = pstmt.getResultSet();
         }
-        System.out.println("Results for executeUpdate INSERT: " + i);
 
 
     }
