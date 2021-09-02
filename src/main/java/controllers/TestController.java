@@ -25,9 +25,7 @@ public class TestController {
 
     public static void insertTestData(Context ctx) throws SQLException {
         TestTableDAO dao = new TestTableDAO(ConnectionFactory.getConnection());
-        TestTable row = new TestTable();
-        row.setStringId(Integer.parseInt(ctx.pathParam("id")));
-        row.setString(ctx.bodyAsClass(TestTable.class).getString());
+        TestTable row = ctx.bodyAsClass(TestTable.class);
         dao.save(row);
     }
 

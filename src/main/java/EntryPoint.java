@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntryPoint {
@@ -17,6 +18,17 @@ public class EntryPoint {
         Connection conn = ConnectionFactory.getConnection();
         TestController.init(app);
 
+
+
+        List<TestTable> stub = new ArrayList<>();
+        TestTable row1 = new TestTable();
+        row1.setStringId(1);
+        row1.setString("This is a string");
+        TestTable row2 = new TestTable();
+        row2.setStringId(1);
+        row2.setString("This is a string");
+        stub.add(row1);
+        stub.add(row2);
 
 
 
