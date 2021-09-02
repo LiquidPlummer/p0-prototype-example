@@ -1,0 +1,8 @@
+#Create a file named connection.properties and include these keys. Alter the values to match what will be assembled into a connection string.
+#When assembled the connection string will look like this:
+#    "jdbc:mariadb://<ENDPOINT>:<PORT>/<DBNAME>?user=<USERNAME>&password=<PASSWORD>"
+endpoint=The endpoint of your AWS RDS instance
+port=The port if the RDS instance, default is 3306
+dbname=The name of a database (contained within your RDS instance. You can have many databases inside one RDS instance)
+username=The user account created with RDS
+password=The password of that user created with RDS
