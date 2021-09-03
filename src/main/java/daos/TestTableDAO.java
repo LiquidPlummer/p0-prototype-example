@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestTableDAO implements Dao<TestTable>{
-    private List<TestTable> testTables;
+    //private List<TestTable> testTables;
     Connection connection;
 
     public TestTableDAO(Connection conn) {
-        testTables = new ArrayList<>();
+        //testTables = new ArrayList<>();
         connection = conn;
     }
 
@@ -32,7 +32,6 @@ public class TestTableDAO implements Dao<TestTable>{
             TestTable row = new TestTable();
             row.setStringId(rs.getInt("string_id"));
             row.setString(rs.getString("string"));
-
             return row;
         } else {
             throw new NoSQLResultsException("ID: " + id + " not found.");
@@ -45,13 +44,15 @@ public class TestTableDAO implements Dao<TestTable>{
         PreparedStatement pstmt = connection.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
 
+        List<TestTable> testTableList = new ArrayList<>();
+
         while(rs.next()) {
             TestTable row = new TestTable();
             row.setStringId(rs.getInt("string_id"));
             row.setString(rs.getString("string"));
-            testTables.add(row);
+            testTableList.add(row);
         }
-        return testTables;
+        return testTableList;
     }
 
     @Override
