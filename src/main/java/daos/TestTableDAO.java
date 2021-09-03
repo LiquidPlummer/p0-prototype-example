@@ -1,11 +1,14 @@
 package daos;
 
+import exceptions.NoSQLResultsException;
 import models.TestTable;
+import org.mariadb.jdbc.internal.util.dao.PrepareResult;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +22,21 @@ public class TestTableDAO implements Dao<TestTable>{
     }
 
     @Override
-    public TestTable get(int id) {
-        return null;
+    public TestTable get(int id) throws SQLException, NoSQLResultsException {
+        String sql = "Select * FROM test_table WHERE string_id = ? LIMIT 1";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setInt(1, id);
+
+        ResultSet rs = pstmt.executeQuery();
+        if(rs.next()) {
+            TestTable row = new TestTable();
+            row.setStringId(rs.getInt("string_id"));
+            row.setString(rs.getString("string"));
+
+            return row;
+        } else {
+            throw new NoSQLResultsException("ID: " + id + " not found.");
+        }
     }
 
     @Override

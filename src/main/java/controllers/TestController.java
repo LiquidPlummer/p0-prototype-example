@@ -1,6 +1,7 @@
 package controllers;
 
 import daos.TestTableDAO;
+import exceptions.NoSQLResultsException;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import models.TestTable;
@@ -15,6 +16,7 @@ public class TestController {
         javalin = app;
         app.get("/test", TestController::testConnection);
         app.post("/test/:id", TestController::insertTestData);
+        app.get("/test/:id", TestController::getById);
 
     }
 
@@ -27,6 +29,12 @@ public class TestController {
         TestTableDAO dao = new TestTableDAO(ConnectionFactory.getConnection());
         TestTable row = ctx.bodyAsClass(TestTable.class);
         dao.save(row);
+    }
+
+    public static void getById(Context ctx) throws SQLException, NoSQLResultsException {
+        TestTableDAO dao = new TestTableDAO(ConnectionFactory.getConnection());
+        TestTable row = dao.get(Integer.parseInt(ctx.pathParam("id")));
+        ctx.json(row);
     }
 
 }
