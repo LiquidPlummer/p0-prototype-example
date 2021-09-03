@@ -61,12 +61,9 @@ public class TestTableDAO implements Dao<TestTable>{
         PreparedStatement pstmt = connection.prepareStatement(sql);
         pstmt.setString(1, testTable.getString());
 
-
         if(pstmt.executeUpdate() > 0) {
-            ResultSet rs = pstmt.getResultSet();
+            pstmt.getResultSet();
         }
-
-
     }
 
     @Override
